@@ -1,3 +1,5 @@
+
+
 import javax.swing.JOptionPane;
 
 public class BowlingGameDriver{
@@ -11,18 +13,18 @@ public class BowlingGameDriver{
 							{8, 1}, {0, 10}, {0, 10, 10}
 			  			  };
 		int scores3[][] = { {2, 6}, {10, 0}, {10, 0}, {5, 5}, {2, 0}, {7, 1}, {10, 0}, 
-						    {10, 0}, {5, 5}, {10, 3, 5}
+						    {10, 0}, {5, 5}, {10, 3, 5} //total 158
 						  };
 		int pins, i = 0, j;
 		while(g.getFrame() < 10){
 			j = 0;
 			do{
 				//pins = Integer.parseInt(JOptionPane.showInputDialog("Enter the pins knocked over for frame " + (g.getFrame()+1) + " :"));
-				pins = scores3[i][j];
+				pins = scores1[i][j];
 				j++;
 			}while(g.shot(pins));
 			i++;
-			g.computeScoreFrame();
+			//g.computeScoreFrame();
 			JOptionPane.showMessageDialog(null, g);	
 		}
 		JOptionPane.showMessageDialog(null, "The bowler's score is: " + g.getScore());	
