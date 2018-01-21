@@ -9,6 +9,7 @@ public class BowlingGame {
 	private int shot;
 	private int gutterBalls;
 	private int score;
+	private int prevShotPins;
 	private boolean thirdShot = false;
 	private static final char tempScoreValue = 'N';
 	private static final int maxNumFrames = 10;
@@ -31,7 +32,7 @@ public class BowlingGame {
 
 	public boolean shot(int p) { // return false if the frame is over.
 		boolean nextShot = false;
-		//boolean thirdShot = false;
+		
 		if (p == 10) {
 			if (shot == 0) {
 				System.out.println("in main if, shot 0 - frame is " + frame + " shot " + shot + " pins " + p);
@@ -65,6 +66,11 @@ public class BowlingGame {
 			}
 			if (shot == 1) {
 				System.out.println("in else, shot 1 - frame is " + frame + " shot " + shot + " pins " + p);
+				
+				if ((prevShotPins != 10) && prevShotPins + p == 10) {
+					spares++;
+				}
+				
 				if (frame == 9 && thirdShot) {
 					nextShot = true;
 				} else {
@@ -84,6 +90,8 @@ public class BowlingGame {
 			frame++;
 			shot = 0;
 		}
+		prevShotPins = p;
+		System.out.println(prevShotPins);
 		System.out.println(nextShot || thirdShot);
 		return nextShot || thirdShot;
 	}
