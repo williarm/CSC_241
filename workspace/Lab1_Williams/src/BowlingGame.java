@@ -9,7 +9,7 @@ public class BowlingGame {
 	private int shot;
 	private int gutterBalls;
 	private int score;
-	// private int prevShotPins;
+	private int[] frames = new int[10];
 	private boolean thirdShot = false;
 	private static final char tempScoreValue = 'N';
 	private static final int maxNumFrames = 10;
@@ -59,8 +59,6 @@ public class BowlingGame {
 
 		if (p == 10) {
 			if (shot == 0) {
-				// System.out.println("in main if, shot 0 - frame is " + frame + " shot " + shot
-				// + " pins " + p);
 				strikes++;
 				if (frame == 9) {
 					nextShot = true;
@@ -68,8 +66,6 @@ public class BowlingGame {
 				}
 			}
 			if (shot == 1) {
-				// System.out.println("in main if, shot 0 - frame is " + frame + " shot " + shot
-				// + " pins " + p);
 
 				if (frame == 9) {
 					strikes++;
@@ -80,8 +76,6 @@ public class BowlingGame {
 				}
 			}
 			if (shot == 2) {
-				// System.out.println("in main if, shot 0 - frame is " + frame + " shot " + shot
-				// + " pins " + p);
 				strikes++;
 				nextShot = false;
 				thirdShot = false;
@@ -91,13 +85,9 @@ public class BowlingGame {
 				gutterBalls++;
 			}
 			if (shot == 0) {
-				// System.out.println("in else, shot 0 - frame is " + frame + " shot " + shot +
-				// " pins " + p);
 				nextShot = true;
 			}
 			if (shot == 1) {
-				// System.out.println("in else, shot 1 - frame is " + frame + " shot " + shot +
-				// " pins " + p);
 
 				if ((scores[frame][shot - 1] != 10) && scores[frame][shot - 1] + p == 10) {// if scores[frame][shot-1]
 																							// !=10 prevShotPins
@@ -124,9 +114,6 @@ public class BowlingGame {
 			frame++;
 			shot = 0;
 		}
-		// prevShotPins = p;
-		// System.out.println(prevShotPins);
-		// System.out.println(nextShot || thirdShot);
 
 		return nextShot || thirdShot;
 	}
@@ -142,45 +129,81 @@ public class BowlingGame {
 
 	public void computeScoreFrame() {
 		/*
-		 * Strikes: 10 points in the current frame plus score from next two rolls
-		 * 
-		 * Spares: 10 points in the current frame plus score from next roll only
+		 * Strikes: 10 points in the current frame plus score from next two rolls 10 +
+		 * ((score[f+1][0]+score[f+1][1])*2) Spares: 10 points in the current frame plus
+		 * score from next roll only 10 + (score[f+1][0]*2)
 		 */
 		int f = getFrame() - 1;
-		if (f >= 2) { // look two frames back
-			// your algorithm for the bonus points goes here.
-			// need to account for frame 10
-			if (scores[f - 1][0] == 10 && scores[f - 2][0] == 10) {
-				System.out.println("previous frame had a strike");
-				score += ((scores[f][0] * 2 + scores[f][1]) + (scores[f][0] + scores[f][1]));
+		System.out.println("frame: " + f);
 
-			} else if (scores[f - 1][0] == 10) {
-				System.out.println("previous frame had a strike");
+		if (f >= 2) { // look two frames back
+
+			// strike last 2 frames
+			if (scores[f - 2][0] == 10 && scores[f - 1][0] == 10) {
+				// score + (throw1*2 + throw2) + (throw1 + throw2)
+				System.out.println("1 - Score in the frame: "
+						+ (((scores[f][0] * 2 + scores[f][1]) + (scores[f][0] + scores[f][1]))));
+				score += ((scores[f][0] * 2 + scores[f][1]) + (scores[f][0] + scores[f][1]));
+				if (f == 9 && ((scores[f][0] == 10) || (scores[f][0] + scores[f][1] == 10))) {
+					score += scores[f][2];
+				}
+
+			}
+			// strike last 1 frame
+			else if (scores[f - 1][0] == 10) {
+				// score + (throw1 + throw2) * 2
+
 				score += ((scores[f][0] + scores[f][1]) * 2);
-			} else if (scores[f - 1][0] + scores[f - 1][1] == 10) {
-				System.out.println("previous frame had a spare");
-				// System.out.println("score: "+score);
-				// System.out.println("scores[f][0]: "+scores[f][0]);
+				if (f == 9) {
+					score += scores[f][2];
+				}
+				System.out.println("2 - Score in the frame: " + (((scores[f][0] + scores[f][1]) * 2)));
+			}
+			// spare last frame
+			else if ((scores[f - 1][0] != 10) && ((scores[f - 1][0] + scores[f - 1][1] == 10))) {// spare last frame
+				// score + throw1 * 2 + throw 2
+
 				score += (scores[f][0] * 2) + scores[f][1];
-			} else {
+				if (f == 9) {
+					score += scores[f][2];
+				}
+				System.out.println("3 - Score in the frame: " + ((scores[f][0] * 2) + scores[f][1]));
+
+			}
+			// regular score tracking
+			else {
+				System.out.println("4 - Score in the frame: " + ((scores[f][0] + scores[f][1])));
 				score += scores[f][0] + scores[f][1];
 			}
-		} else if (f == 1) { // look one frame back
-			// your algorithm for the bonus points goes here.
-			if (scores[f - 1][0] == 10) {
-				System.out.println("previous frame had a strike");
+
+		}
+
+		else if (f == 1) // look one frame back
+
+		{
+
+			if (scores[f - 1][0] == 10) { // strike last frame
+				// score + (throw1 + throw2) * 2
+				System.out.println("5 - Score in the frame: " + (((scores[f][0] + scores[f][1]) * 2)));
 				score += ((scores[f][0] + scores[f][1]) * 2);
-			} else if (scores[f - 1][0] + scores[f - 1][1] == 10) {
-				System.out.println("previous frame had a spare");
-				// System.out.println("score: "+score);
-				// System.out.println("scores[f][0]: "+scores[f][0]);
-				score += (scores[f][0] * 2) + scores[f][1];
 			}
-		} else { // first frame
+
+			else if ((scores[f - 1][0] != 10) && (scores[f - 1][0] + scores[f - 1][1] == 10)) {// spare last frame
+				// score + throw1 * 2 + throw 2
+				System.out.println("6 - Score in the frame: " + ((scores[f][0] * 2) + scores[f][1]));
+				score += (scores[f][0] * 2) + scores[f][1];
+
+			} else {
+				System.out.println("7 - Score in the frame: " + ((scores[f][0] + scores[f][1])));
+				score += scores[f][0] + scores[f][1];
+			}
+
+		}
+
+		else { // first frame
+			System.out.println("8 - Score in the frame: " + ((scores[f][0] + scores[f][1])));
 			score += scores[f][0] + scores[f][1];
 		}
-		// System.out.println("f: " + f +" scores[f][0]: "+ scores[f][0]+" scores[f][1]:
-		// " + scores[f][1] +" score: " + score);
 	}
 
 	public void computeScore() {
