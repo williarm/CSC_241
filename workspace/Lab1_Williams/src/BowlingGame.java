@@ -9,7 +9,6 @@ public class BowlingGame {
 	private int shot;
 	private int gutterBalls;
 	private int score;
-	private int[] frames = new int[10];
 	private boolean thirdShot = false;
 	private static final char tempScoreValue = 'N';
 	private static final int maxNumFrames = 10;
@@ -38,7 +37,8 @@ public class BowlingGame {
 		// scores[frame][shot]);
 		/*
 		 * Rules: If the frame is 1-9, then a Strike will increment the frame. If frame
-		 * is 10, then a strike enables two additional shots
+		 * is 10, then a strike enables two additional shots. In frame 10, a spare on
+		 * the second shot will allow a third shot.
 		 * 
 		 * 
 		 * Scoring rules:
@@ -130,8 +130,10 @@ public class BowlingGame {
 	public void computeScoreFrame() {
 		/*
 		 * Strikes: 10 points in the current frame plus score from next two rolls 10 +
-		 * ((score[f+1][0]+score[f+1][1])*2) Spares: 10 points in the current frame plus
-		 * score from next roll only 10 + (score[f+1][0]*2)
+		 * ((score[f+1][0]+score[f+1][1])*2)
+		 * 
+		 * Spares: 10 points in the current frame plus score from next roll only 10 +
+		 * (score[f+1][0]*2)
 		 */
 		int f = getFrame() - 1;
 		System.out.println("frame: " + f);
@@ -208,6 +210,7 @@ public class BowlingGame {
 
 	public void computeScore() {
 		// loop through scores array and calculate
+
 	}
 
 	public int getScore() {
