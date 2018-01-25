@@ -1,3 +1,4 @@
+import javax.swing.JOptionPane;
 
 public class BowlingGame {
 
@@ -9,6 +10,7 @@ public class BowlingGame {
 	private int shot;
 	private int gutterBalls;
 	private int score;
+	private int[] frameScores = new int[10];
 	private boolean thirdShot = false;
 	private static final char tempScoreValue = 'N';
 	private static final int maxNumFrames = 10;
@@ -136,7 +138,7 @@ public class BowlingGame {
 		 * (score[f+1][0]*2)
 		 */
 		int f = getFrame() - 1;
-		System.out.println("frame: " + f);
+		// System.out.println("frame: " + f);
 
 		if (f >= 2) { // look two frames back
 
@@ -209,7 +211,50 @@ public class BowlingGame {
 	}
 
 	public void computeScore() {
-		// loop through scores array and calculate
+		int scoreCheck = 0;
+
+		for (int i = 0; i < maxNumFrames; i++) {
+
+			// if current frame was a strike, then add the scores from the next 2 rolls to
+			// the current frame
+			// if current frame was a spare, then add the score from the next 1 frame to the
+			// current frame
+			// otherwise just go to the next frame and add the score like usual
+			if (i < 9) {
+				if (scores[i][0] == 10) { // strike this frame
+					frameScores[i] += 10;
+					if (scores[i + 1][0] == 10) {// because of strike, check 1 of 2 roll for another strike
+						frameScores[i] += 10;
+						if (i == 8 && scores[i + 1][1] == 10) {
+							// frame 9, check roll 2 of frame 10
+							frameScores[i] += 10;
+						} else {
+							if (scores[i + 2][0] == 10) {// because of strike, check 2 of 2 roll for another strike
+								frameScores[i] += 10;
+							} else {
+								frameScores[i] += scores[i + 2][0]; // no strike on roll 2 of 2, just add the pins
+							}
+
+						}
+
+					} // need else here for adding regular score
+					else {
+						frameScores[i] += (scores[i + 1][0] + scores[i + 1][1]);
+					}
+				} else if ((scores[i][0] != 10) && (scores[i][0] + scores[i][1] == 10)) { // spare this frame
+					frameScores[i] += (scores[i][0] + scores[i][1] + scores[i + 1][0]); // add score from next 1 roll
+				} else {
+					frameScores[i] += (scores[i][0] + scores[i][1]);
+				}
+			} else if (i == 9) {
+				frameScores[i] += (scores[i][0] + scores[i][1] + scores[i][2]);
+			}
+		}
+		for (int j = 0; j < frameScores.length; j++) {
+			scoreCheck += frameScores[j];
+			System.out.println(scoreCheck);
+		}
+		JOptionPane.showMessageDialog(null, "The bowler's verified score is: " + scoreCheck);
 
 	}
 
