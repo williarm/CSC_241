@@ -2,8 +2,8 @@
 /**
  * Purpose: The PalindromeDriver class is designed to execute the code in
  * the Palindrome.java class. It accepts user input and creates an instance
- * of the Palindrome Class. It calls the getPalindromicDate method and
- * printStack methods.
+ * of the Palindrome Class. It calls the getPalindromicDate method, emptyStack,
+ * and toString methods.
  * 
  * Constructors: None
  * 
