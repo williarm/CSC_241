@@ -22,7 +22,7 @@ public class PalindromeDriver {
 		int endYear = Integer.parseInt(JOptionPane.showInputDialog("Please enter an ending year greater than 0: "));
 
 		if (startYear >= 0 && endYear >= 0) {
-			Palindrome p = new Palindrome();
+			PalindromicDates p = new PalindromicDates();
 			for (int i = startYear; i < endYear + 1; i++) {
 				p.getPalindromicDate(i);
 				p.printStack();

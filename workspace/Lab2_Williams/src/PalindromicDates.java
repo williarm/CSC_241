@@ -1,12 +1,13 @@
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
 
 /**
- * Purpose: The Palindrome program is designed to determine all dates in a given
- * year that are palindromes.
+ * Purpose: The PalindromicDates program is designed to determine all dates in a
+ * given year that are palindromes.
  * 
- * Constructors: Palindrome
+ * Constructors: PalindromicDates
  * 
  * Methods: printStack, getPalindromicDate, reverseString
  * 
@@ -15,25 +16,27 @@ import java.text.SimpleDateFormat;
  * 
  */
 
-public class Palindrome {
+public class PalindromicDates {
 
 	private StackInterface<String> palindromicDates;
+	ArrayList<Integer> dateNumber = new ArrayList<>();
+	ArrayList<String> date = new ArrayList<>();
 
 	/**
-	 * Purpose: The Palindrome constructor creates a Palindrome object
-	 * and initializes the palindromicDates variable.
+	 * Purpose: The Palindrome constructor creates a Palindrome object and
+	 * initializes the palindromicDates variable.
 	 * 
 	 * @param nothing
 	 * @return nothing
 	 * 
 	 */
-	public Palindrome() {
+	public PalindromicDates() {
 		palindromicDates = new LinkedStack<String>();
 	}
 
 	/**
-	 * Purpose: The printStack method prints out the elements
-	 * of the palindromicDates LinkedList stack. 
+	 * Purpose: The printStack method prints out the elements of the
+	 * palindromicDates LinkedList stack.
 	 * 
 	 * @param nothing
 	 * @return nothing
@@ -54,23 +57,27 @@ public class Palindrome {
 
 			System.out.println("Palindromic Date is: " + reverseString(month + day + year));
 			System.out.println("Formatted Date is: " + month + "-" + day + "-" + year + "\n");
+			for(int dateNum : dateNumber) {
+				System.out.println(dateNum);
+			}
 
 		}
 	}
 
 	/**
-	 * Purpose: The getPalindromicDates method is designed to determine if the dates in a
-	 * year are palindromic. It accepts an int (year) as input, and created a GregorianCalendar
-	 * object. It loops through the dates in the Gregorian Calendar, and reverses the String representation
-	 * of the date. If the date is a palindrome, it pushes the date onto the LinkedList stack.
+	 * Purpose: The getPalindromicDates method is designed to determine if the dates
+	 * in a year are palindromic. It accepts an int (year) as input, and created a
+	 * GregorianCalendar object. It loops through the dates in the Gregorian
+	 * Calendar, and reverses the String representation of the date. If the date is
+	 * a palindrome, it pushes the date onto the LinkedList stack.
 	 * 
-	 * @param int date
+	 * @param int
+	 *            date
 	 * @return StackInterface<String>
 	 * 
 	 */
-	public StackInterface<String> getPalindromicDate(int date) {
+	public StackInterface<String> getPalindromicDate(int year) {
 		// loop through every day in the year and assign it to the currentDate variable
-		int year = date;
 		int totalDays = 365;
 		String currentDate = new String();
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("MMddyyyy");
@@ -91,6 +98,8 @@ public class Palindrome {
 				palindromicDates.push(currentDate.substring(4, 8));
 				palindromicDates.push(currentDate.substring(2, 4));
 				palindromicDates.push(currentDate.substring(0, 2));
+				dateNumber.add(Integer.parseInt(currentDate));
+				//dateString[i] = currentDate;
 			}
 		}
 
@@ -99,10 +108,11 @@ public class Palindrome {
 	}
 
 	/**
-	 * Purpose: The reverseString method is designed to accept a String
-	 * and reverse the value of the String.
+	 * Purpose: The reverseString method is designed to accept a String and reverse
+	 * the value of the String.
 	 * 
-	 * @param String date
+	 * @param String
+	 *            date
 	 * @return String newDate
 	 * 
 	 */
