@@ -28,7 +28,6 @@ public class PalindromeDriver {
 			year = JOptionPane.showInputDialog("Please enter a year greater than 0: ");
 
 			if (year == null) {
-				System.out.println(p.toString());
 				System.exit(0);
 			} else {
 				try {
