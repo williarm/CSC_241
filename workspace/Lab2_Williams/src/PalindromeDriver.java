@@ -18,16 +18,16 @@ import javax.swing.JOptionPane;
 public class PalindromeDriver {
 
 	public static void main(String[] args) {
-		int confirmResponse = 0;
 
 		String year;
 
 		PalindromicDates p = new PalindromicDates();
-		while (confirmResponse == 0) {
+		while (true) {
 
-			year = JOptionPane.showInputDialog("Please enter a year greater than 0: ");
+			year = JOptionPane.showInputDialog("Please enter a year greater than 0. Press cancel to finish entering dates.");
 
 			if (year == null) {
+				p.toString();
 				System.exit(0);
 			} else {
 				try {
