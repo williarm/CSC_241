@@ -1,12 +1,13 @@
 /**
- * Purpose: The LinkedStack class is designed to process operations relating to the stack. It
- * implements the StackInterface interface.
+ * Purpose: The LinkedStack class is designed to process operations relating to
+ * the stack. It implements the StackInterface interface.
  * 
  * Constructors: LinkedStack
  * 
  * Methods: push, pop, top, isFull, isEmpty
  * 
- * @author Nell Dale, Daniel T Joyce, Chip Weems (Object Oriented Data Structures in Java)
+ * @author Nell Dale, Daniel T Joyce, Chip Weems (Object Oriented Data
+ *         Structures in Java)
  * @since 2018-02-08
  * 
  */
@@ -16,8 +17,8 @@ public class LinkedStack<T> implements StackInterface<T> {
 	protected LLNode<T> top;
 
 	/**
-	 * Purpose: The LinkedStack constructor creates an empty stack
-	 * by setting the value of top to null. 
+	 * Purpose: The LinkedStack constructor creates an empty stack by setting the
+	 * value of top to null.
 	 * 
 	 * @param nothing
 	 * @return nothing
@@ -28,10 +29,11 @@ public class LinkedStack<T> implements StackInterface<T> {
 	}
 
 	/**
-	 * Purpose: The push method creates a new node and links it to the current
-	 * chain of nodes.
+	 * Purpose: The push method creates a new node and links it to the current chain
+	 * of nodes.
 	 * 
-	 * @param T element
+	 * @param T
+	 *            element
 	 * @return nothing
 	 * 
 	 */
@@ -93,7 +95,8 @@ public class LinkedStack<T> implements StackInterface<T> {
 	}
 
 	/**
-	 * Purpose: The isEmpty method returns a boolean indicating if the stack is empty.
+	 * Purpose: The isEmpty method returns a boolean indicating if the stack is
+	 * empty.
 	 * 
 	 * @param nothing
 	 * @return boolean
@@ -103,6 +106,22 @@ public class LinkedStack<T> implements StackInterface<T> {
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return (top == null);
+	}
+	
+	public int iterListSize(LLNode<T> listRef) {
+		int size = 0;
+		while (listRef != null) {
+			size++;
+			listRef = listRef.getLink();
+		}
+		return size;
+	}
+
+	public int recListSize(LLNode<T> listRef) {
+		if (listRef == null)
+			return 0;
+		else
+			return 1 + recListSize(listRef.getLink());
 	}
 
 }
