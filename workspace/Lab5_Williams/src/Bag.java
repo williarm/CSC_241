@@ -73,4 +73,13 @@ public class Bag<T> extends ArrayCollection implements BagInterface {
 		}
 
 	}
+	
+	public String toString() {
+		Object o = new Object();
+		for (int i=0; i< this.numElements; i++) {
+			o = this.elements[i];
+			System.out.println(o);
+		}
+		return null;
+	}
 }

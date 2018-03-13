@@ -34,11 +34,8 @@ public class BagDriver {
 		
 		//Print the objects
 		System.out.println("Printing the objects:");
-		System.out.println(p1.toString());
-		System.out.println(p2.toString());
-		System.out.println(p3.toString());
-		System.out.println(p4.toString());
-		System.out.println(p5.toString()+"\n");
+		myBag.toString();
+		System.out.println("\n");
 
 		System.out.println("Bag Count After Adding Objects: " + myBag.size() + "\n");
 
@@ -56,7 +53,6 @@ public class BagDriver {
 		System.out.println("Clearing the bag... ");
 		myBag.clear();
 		System.out.println("Bag Count After Clear: " + myBag.size());
-
 
 	}
 
