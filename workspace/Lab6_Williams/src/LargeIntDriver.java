@@ -5,6 +5,5 @@ public class LargeIntDriver {
 		LargeInt y = new LargeInt("123");
 		LargeInt z = LargeInt.add(x, y);
 		LargeInt product = LargeInt.multiply(x, y);
-		System.out.println(product);
 	}
 }
