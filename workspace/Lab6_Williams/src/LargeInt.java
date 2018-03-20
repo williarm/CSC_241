@@ -270,6 +270,15 @@ public class LargeInt {
 		return diff;
 	}
 
+	/**
+	 * Purpose: The multipleByZero method checks the LargeInts to see if either one
+	 * is 0. If so, the method returns true.
+	 * 
+	 * @param LargeInt
+	 *            first, LargeInt second
+	 * @return boolean
+	 * 
+	 */
 	public static boolean multiplyByZero(LargeInt first, LargeInt second) {
 		Iterator<Byte> firstMultiples = first.numbers.reverse();
 		Iterator<Byte> secondMultiples = second.numbers.reverse();
@@ -291,6 +300,14 @@ public class LargeInt {
 		return firstZero || secondZero;
 	}
 
+	/**
+	 * Purpose: The multiply method multiplies two LargeInts.
+	 * 
+	 * @param LargeInt
+	 *            first, LargeInt second
+	 * @return LargeInt
+	 * 
+	 */
 	public static LargeInt multiply(LargeInt first, LargeInt second) {
 
 		LargeInt finalProduct = new LargeInt();
