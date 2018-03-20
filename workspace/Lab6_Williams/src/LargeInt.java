@@ -270,48 +270,67 @@ public class LargeInt {
 		return diff;
 	}
 
+	public static boolean multiplyByZero(LargeInt first, LargeInt second) {
+		Iterator<Byte> firstMultiples = first.numbers.reverse();
+		Iterator<Byte> secondMultiples = second.numbers.reverse();
+		boolean firstZero = true;
+		boolean secondZero = true;
+
+		while (firstMultiples.hasNext()) {
+			if (firstMultiples.next() > 0) {
+				firstZero = false;
+			}
+		}
+
+		while (secondMultiples.hasNext()) {
+			if (secondMultiples.next() > 0) {
+				secondZero = false;
+			}
+		}
+
+		return firstZero || secondZero;
+	}
+
 	public static LargeInt multiply(LargeInt first, LargeInt second) {
 
-		LargeInt currentProduct = new LargeInt();
 		LargeInt finalProduct = new LargeInt();
 		Iterator<Byte> multiple = second.numbers.reverse();
 		int currentDigit = 0;
 		int size = second.numbers.size();
 		int listIndex = size;
 
-		while (multiple.hasNext()) {
-
-			currentDigit = multiple.next();
-			if (size > listIndex) {
-				currentDigit = (int) (Math.pow(10, (size - listIndex)) * currentDigit);
-			}
-
-			for (int i = 0; i < currentDigit; i++) {
-
-				currentProduct = add(currentProduct, first);
-				finalProduct = currentProduct;
-			}
-
-			listIndex--;
-
-		}
-
-		if (first.sign && second.sign) {
-			// two positive integers = positive number
-			finalProduct.sign = PLUS;
-		} else if (!first.sign && second.sign) {
-			// first negative, second positive = negative number
-			finalProduct.sign = MINUS;
-		} else if (first.sign && !second.sign) {
-			// first positive, second negative = negative number
-			finalProduct.sign = MINUS;
+		if (multiplyByZero(first, second)) {
+			finalProduct.numbers.addFront((byte) 0);
 		} else {
-			// both negative = positive number
-			finalProduct.sign = PLUS;
-		}
 
-		System.out.println("Final Product is: " + finalProduct.toString());
+			while (multiple.hasNext()) {
+
+				currentDigit = multiple.next();
+				if (size > listIndex) {
+					currentDigit = (int) (Math.pow(10, (size - listIndex)) * currentDigit);
+				}
+
+				for (int i = 0; i < currentDigit; i++) {
+
+					finalProduct = add(finalProduct, first);
+				}
+
+				listIndex--;
+
+			}
+
+			if ((first.sign && second.sign) || (!first.sign && !second.sign)) {
+				// two positive integers = positive number
+				// both negative = positive number
+				finalProduct.sign = PLUS;
+			} else if ((!first.sign && second.sign) || (first.sign && !second.sign)) {
+				// first negative, second positive = negative number
+				// first positive, second negative = negative number
+				finalProduct.sign = MINUS;
+			}
+
+		}
+		System.out.println("Product is: " + finalProduct.toString());
 		return finalProduct;
 	}
-
 }
