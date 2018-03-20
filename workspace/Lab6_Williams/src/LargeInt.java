@@ -289,12 +289,25 @@ public class LargeInt {
 			for (int i = 0; i < currentDigit; i++) {
 
 				currentProduct = add(currentProduct, first);
-
 				finalProduct = currentProduct;
 			}
 
 			listIndex--;
 
+		}
+
+		if (first.sign && second.sign) {
+			// two positive integers = positive number
+			finalProduct.sign = PLUS;
+		} else if (!first.sign && second.sign) {
+			// first negative, second positive = negative number
+			finalProduct.sign = MINUS;
+		} else if (first.sign && !second.sign) {
+			// first positive, second negative = negative number
+			finalProduct.sign = MINUS;
+		} else {
+			// both negative = positive number
+			finalProduct.sign = PLUS;
 		}
 
 		System.out.println("Final Product is: " + finalProduct.toString());
