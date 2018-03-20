@@ -337,12 +337,8 @@ public class LargeInt {
 			}
 
 			if ((first.sign && second.sign) || (!first.sign && !second.sign)) {
-				// two positive integers = positive number
-				// both negative = positive number
 				finalProduct.sign = PLUS;
 			} else if ((!first.sign && second.sign) || (first.sign && !second.sign)) {
-				// first negative, second positive = negative number
-				// first positive, second negative = negative number
 				finalProduct.sign = MINUS;
 			}
 
