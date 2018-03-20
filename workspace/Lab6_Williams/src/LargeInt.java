@@ -272,62 +272,33 @@ public class LargeInt {
 
 	public static LargeInt multiply(LargeInt first, LargeInt second) {
 
-		/*
-		 * i already have both numbers as is. multiplication requires me to multiply the
-		 * top number (first number) by the first digit of the bottom number (second
-		 * number) to make this step happen, i need to do the following: - get the last
-		 * digit of the second number (this is what i multiply the first number by. in
-		 * this case, I'm adding the first number to itself this many times - 1). how do
-		 * I do this? Create an Iterator, then use .next() to get the next value in the
-		 * List. If I use reverse, then next will give me the ones place. If I use
-		 * forward, then next will give me the first number in the List. I can iterate
-		 * through the list using hasNext to get the next value in the list.
-		 * 
-		 * questions: how do i store the result set of each step in multiplication? -
-		 * for the ones place, i need to add the number to itself multiple times. this
-		 * can be stored in the product.numbers List - but, how do I handle it for
-		 * multiple length numbers? - if the current multiple is not in the ones place,
-		 * then i need to call addLast to put a 0 at the end of the list
-		 * 
-		 * public int recListSize(LLNode<T> listRef) { if (listRef == null) return 0;
-		 * else return 1 + recListSize(listRef.getLink()); }
-		 */
-		LargeInt product = first;
-		LargeInt addNumber = new LargeInt();
-		int loopCounter = second.numbers.size();
+		LargeInt currentProduct = new LargeInt();
+		LargeInt finalProduct = new LargeInt();
 		Iterator<Byte> multiple = second.numbers.reverse();
-		byte currentMultiple;
-
-		System.out.println("Loop Counter: " + loopCounter);
+		int currentDigit = 0;
+		int size = second.numbers.size();
+		int listIndex = size;
 
 		while (multiple.hasNext()) {
 
-			System.out.println("Product is: " + product.toString());
-
-			currentMultiple = multiple.next();
-
-			if (loopCounter < second.numbers.size()) {
-
-				for (int i = 0; i < second.numbers.size() - loopCounter; i++) {
-					product.numbers.addEnd((byte) 0);
-
-				}
-
+			currentDigit = multiple.next();
+			if (size > listIndex) {
+				currentDigit = (int) (Math.pow(10, (size - listIndex)) * currentDigit);
 			}
 
-			if (currentMultiple != 1) {
+			for (int i = 0; i < currentDigit; i++) {
 
-				for (int i = 0; i < currentMultiple; i++) {
-					System.out.println(currentMultiple);
-					product = add(product, first);
-				}
+				currentProduct = add(currentProduct, first);
+
+				finalProduct = currentProduct;
 			}
-			loopCounter--;
+
+			listIndex--;
 
 		}
 
-		System.out.println("Loop Counter: " + loopCounter);
-		return product;
+		System.out.println("Final Product is: " + finalProduct.toString());
+		return finalProduct;
 	}
 
 }
