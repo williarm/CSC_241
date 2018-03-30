@@ -14,9 +14,9 @@ public class BinarySearchTreeDriver {
 
 		for (BinarySearchTree<Integer> bst : bstList) {
 			for (int j = 0; j < 1000; j++) {
-				bst.add(randomNum.nextInt(3000));
+				bst.add(randomNum.nextInt((3000 - 1) + 1) + 1);
 			}
-			
+
 			System.out.println("Size: " + bst.size());
 			System.out.println("Max Number: " + bst.max());
 			System.out.println("Min Number: " + bst.min());
