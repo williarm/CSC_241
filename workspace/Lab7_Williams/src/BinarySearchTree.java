@@ -340,15 +340,17 @@ public class BinarySearchTree<T> implements BSTInterface<T> {
 			 */
 			if (root.getRight() == null && root.getLeft() == null) {
 				return 1;
+			} else {
+				/* Check the height of the right nodes and return the value */
+				if (root.getRight() == null) {
+					return minHeight(root.getRight());
+				}
+				/* Check the height of the left nodes and return the value */
+				if (root.getLeft() == null) {
+					return minHeight(root.getLeft());
+				}
 			}
-			/* Check the height of the right nodes and return the value */
-			if (root.getRight() == null) {
-				return minHeight(root.getRight());
-			}
-			/* Check the height of the left nodes and return the value */
-			if (root.getLeft() == null) {
-				return minHeight(root.getLeft());
-			}
+
 			/* Return the lower of the right and left heights */
 			return Math.min(minHeight(root.getRight()), minHeight(root.getLeft())) + 1;
 		}
