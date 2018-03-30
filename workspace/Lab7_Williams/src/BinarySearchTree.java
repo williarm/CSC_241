@@ -6,6 +6,8 @@
 // Supports three traversal orders Preorder, Postorder & Inorder ("natural")
 //---------------------------------------------------------------------------
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.*; // Iterator, Comparator
 
 public class BinarySearchTree<T> implements BSTInterface<T> {
@@ -312,6 +314,7 @@ public class BinarySearchTree<T> implements BSTInterface<T> {
 	}
 
 	public int height(BSTNode<T> root) {
+		/* Base case. If the root node is null, then the tree is empty. Return 0 */
 		if (root == null) {
 			return 0;
 		} else {
@@ -324,5 +327,35 @@ public class BinarySearchTree<T> implements BSTInterface<T> {
 				return leftHeight + 1;
 			}
 		}
+	}
+
+	public int minHeight(BSTNode<T> root) {
+		/* Base case. If the root node is null, then the tree is empty. Return 0. */
+		if (root == null) {
+			return 0;
+		} else {
+			/*
+			 * At this point we have at least 1 node (root). Check to see if the left and
+			 * right nodes are null. If they are, the only node is root and the value is 1
+			 */
+			if (root.getRight() == null && root.getLeft() == null) {
+				return 1;
+			}
+			/* Check the height of the right nodes and return the value */
+			if (root.getRight() == null) {
+				return minHeight(root.getRight());
+			}
+			/* Check the height of the left nodes and return the value */
+			if (root.getLeft() == null) {
+				return minHeight(root.getRight());
+			}
+			/* Return the lower of the right and left heights */
+			return Math.min(minHeight(root.getRight()), minHeight(root.getLeft())) + 1;
+		}
+	}
+
+	public double fRatio(BSTNode<T> root) {
+		return (double) minHeight(root) / height(root);
+
 	}
 }
