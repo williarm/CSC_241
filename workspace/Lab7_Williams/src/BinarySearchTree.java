@@ -312,6 +312,14 @@ public class BinarySearchTree<T> implements BSTInterface<T> {
 	{
 		return getIterator(BSTInterface.Traversal.Inorder);
 	}
+	
+	/**
+	 * Purpose: The height method calculates the height of a BinarySearchTree.
+	 * 
+	 * @param BSTNode<T> root
+	 * @return int
+	 * 
+	 */
 
 	public int height(BSTNode<T> root) {
 		/* Base case. If the root node is null, then the tree is empty. Return 0 */
@@ -329,6 +337,13 @@ public class BinarySearchTree<T> implements BSTInterface<T> {
 		}
 	}
 
+	/**
+	 * Purpose: The minHeight method calculates the min height of a BinarySearchTree.
+	 * 
+	 * @param BSTNode<T> root
+	 * @return int
+	 * 
+	 */
 	public int minHeight(BSTNode<T> root) {
 		/* Base case. If the root node is null, then the tree is empty. Return 0. */
 		if (root == null) {
@@ -356,6 +371,13 @@ public class BinarySearchTree<T> implements BSTInterface<T> {
 		}
 	}
 
+	/**
+	 * Purpose: The fRatio method calculates the fullness ratio of a BinarySearchTree.
+	 * 
+	 * @param BSTNode<T> root
+	 * @return double
+	 * 
+	 */
 	public double fRatio(BSTNode<T> root) {
 		return (double) minHeight(root) / height(root);
 
