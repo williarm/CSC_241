@@ -17,7 +17,6 @@
 // not necessarily mean that an entry did not exist.
 //---------------------------------------------------------------------------
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class HMap<K, V> implements MapInterface<K, V> {
@@ -114,25 +113,40 @@ public class HMap<K, V> implements MapInterface<K, V> {
 			return null;
 		}
 	}
+	
+	/**
+	 * Purpose: The Remove method removes elements from the hash map.
+	 * 
+	 * @param K k
+	 * @return V
+	 * 
+	 */
 
 	public V remove(K k)
+	// Throws UnsupportedOperationException.
 	{
 		if (k == null) {
 			throw new IllegalArgumentException("Maps do not allow null keys");
-		}
-		else
-		{
-			if (contains(k)) {
-				K key = (K)"00000";
-				V value = (V)"00000";
-				MapEntry<K, V> entry = new MapEntry<K, V>(key, value);
-				map[location(k)] = entry;
-				System.out.println("Removed Value");
-			}else {
-				System.out.println("Key " + k.toString()+ " not found.");
+		} else {
+			int i = 0;
+			int location = Math.abs(k.hashCode()) % currCap;
+			while (i < map.length) {
+				try {
+					if(map[location].getKey().equals(k)) {
+						V value = (V) map[location];
+						map[location] = null;
+						System.out.println("Removed value: " + value.toString());
+						numPairs = numPairs - 1;
+						return value;
+					}
+
+				} catch (NullPointerException E) {
+
+				}
+				i++;
+				location = (location + 1) % currCap;
 			}
 		}
-	
 		return null;
 	}
 
@@ -240,8 +254,8 @@ public class HMap<K, V> implements MapInterface<K, V> {
 		MapEntry<K, V> item;
 		while (items.hasNext()) {
 			item = items.next();
-			s += "First Choice: " + (((int) (item.key) % origCap) + "") + "\nLocation: "
-					+ (location(item.key) + "\n") + item + "\n";
+			s += "First Choice: " + (((int) (item.key) % origCap) + "") + "\nLocation: " + (location(item.key) + "\n")
+					+ item + "\n";
 			count++;
 		}
 		return s;
