@@ -145,6 +145,9 @@ public class UseGraph {
 		graph.addVertex(s4);
 		graph.addVertex(s5);
 		graph.addVertex(s6);
+		
+		System.out.println("The graph has Atlanta: " + graph.hasVertex(s0));
+		System.out.println("The graph has L.A.: " + graph.hasVertex("L.A."));
 
 		graph.addEdge(s0, s5, 800);
 		graph.addEdge(s0, s6, 600);
@@ -339,8 +342,11 @@ public class UseGraph {
 		System.out.println();
 		System.out.println("Shortest paths starting at " + s4);
 		shortestPaths(graph, s4);
-
+		
 		System.out.println();
+		
+		
+		
 
 	}
 }
