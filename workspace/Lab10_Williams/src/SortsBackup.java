@@ -8,7 +8,7 @@
 import java.util.*;
 import java.text.DecimalFormat;
 
-public class Sorts {
+public class SortsBackup {
 	static final int SIZE = 50; // size of array to be sorted
 	static int swaps = 0;
 	static int comparisons = 0;
@@ -23,10 +23,13 @@ public class Sorts {
 			values[index] = Math.abs(rand.nextInt()) % 100;
 
 		backupValues = values;
-	
+
 	}
 
 	static void resetValues() {
+		values = backupValues;
+		comparisons = 0;
+		swaps = 0;
 
 	}
 
@@ -63,6 +66,8 @@ public class Sorts {
 			else
 				System.out.print(fmt.format(value) + " ");
 		}
+		System.out.println(swaps + " swaps.");
+		System.out.println(comparisons + " comparisons.");
 		System.out.println();
 	}
 
@@ -94,6 +99,8 @@ public class Sorts {
 		int endIndex = SIZE - 1;
 		for (int current = 0; current < endIndex; current++)
 			swap(current, minIndex(current, endIndex));
+
+		printValues();
 	}
 
 	/////////////////////////////////////////////////////////////////
@@ -105,21 +112,26 @@ public class Sorts {
 	// between values[startIndex]..values[endIndex]
 	// beginning at values[endIndex].
 	{
-		for (int index = endIndex; index > startIndex; index--)
+		for (int index = endIndex; index > startIndex; index--) {
+			comparisons++;
 			if (values[index] < values[index - 1])
 				swap(index, index - 1);
+		}
 	}
 
 	static void bubbleSort()
 	// Sorts the values array using the bubble sort algorithm.
 	{
-		System.out.println("Bubble Sort");
+		System.out.println("BubbleSort");
+		resetValues();
 		int current = 0;
 
 		while (current < (SIZE - 1)) {
 			bubbleUp(current, SIZE - 1);
 			current++;
 		}
+		
+		printValues();
 	}
 
 	/////////////////////////////////////////////////////////////////
@@ -146,12 +158,16 @@ public class Sorts {
 	// Sorts the values array using the bubble sort algorithm.
 	// The process stops as soon as values is sorted.
 	{
+		System.out.println("ShortBubble");
+		resetValues();
 		int current = 0;
 		boolean sorted = false;
 		while ((current < (SIZE - 1)) && !sorted) {
 			sorted = bubbleUp2(current, SIZE - 1);
 			current++;
 		}
+		
+		printValues();
 	}
 
 	/////////////////////////////////////////////////////////////////
@@ -177,8 +193,12 @@ public class Sorts {
 	static void insertionSort()
 	// Sorts the values array using the insertion sort algorithm.
 	{
+		System.out.println("InsertionSort");
+		resetValues();
 		for (int count = 1; count < SIZE; count++)
 			insertItem(0, count);
+		
+		printValues();
 	}
 
 	/////////////////////////////////////////////////////////////////
@@ -230,12 +250,15 @@ public class Sorts {
 	static void mergeSort(int first, int last)
 	// Sorts the values array using the merge sort algorithm.
 	{
+		System.out.println("MergeSort doesn't swap");
 		if (first < last) {
 			int middle = (first + last) / 2;
 			mergeSort(first, middle);
 			mergeSort(middle + 1, last);
 			merge(first, middle, middle + 1, last);
 		}
+		
+		printValues();
 	}
 
 	/////////////////////////////////////////////////////////////////
@@ -279,6 +302,8 @@ public class Sorts {
 	}
 
 	static void quickSort(int first, int last) {
+		System.out.println("QuickSort");
+		resetValues();
 		if (first < last) {
 			int splitPoint;
 
@@ -290,6 +315,8 @@ public class Sorts {
 			quickSort(first, splitPoint - 1);
 			quickSort(splitPoint + 1, last);
 		}
+		
+		printValues();
 	}
 
 	/////////////////////////////////////////////////////////////////
@@ -346,6 +373,7 @@ public class Sorts {
 			values[hole] = values[newhole]; // move value up
 			hole = newhole; // move hole down
 			newhole = newHole(hole, lastIndex, item); // find next hole
+			comparisons++;
 		}
 		values[hole] = item; // fill in the final hole
 	}
@@ -353,6 +381,8 @@ public class Sorts {
 	static void heapSort()
 	// Sorts the values array using the heap sort algorithm.
 	{
+		System.out.println("HeapSort");
+		resetValues();
 		int index;
 		// Convert the array of values into a heap.
 		for (index = SIZE / 2 - 1; index >= 0; index--)
@@ -363,6 +393,8 @@ public class Sorts {
 			swap(0, index);
 			reheapDown(values[0], 0, index - 1);
 		}
+		
+		printValues();
 	}
 
 	/////////////////////////////////////////////////////////////////
@@ -376,15 +408,15 @@ public class Sorts {
 		System.out.println();
 
 		// make call to sorting method here (just remove //)
-		selectionSort();
-		 bubbleSort();
-		// shortBubble();
-		// insertionSort();
-		// mergeSort(0, SIZE - 1);
-		// quickSort(0, SIZE - 1);
-		// heapSort();
+		// selectionSort();
+//		 bubbleSort();
+//		 shortBubble();
+//		 insertionSort();
+//		 mergeSort(0, SIZE - 1);
+//		 quickSort(0, SIZE - 1);
+		 heapSort();
 
-		printValues();
+		//printValues();
 		System.out.println("values is sorted: " + isSorted());
 		System.out.println();
 	}
