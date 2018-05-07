@@ -19,58 +19,8 @@ public class Sorts {
 	// Initializes the values array with random integers from 0 to 99.
 	{
 		Random rand = new Random();
-		// for (int index = 0; index < SIZE; index++)
-		// values[index] = Math.abs(rand.nextInt()) % 100;
-		values[0] = 88;
-		values[1] = 49;
-		values[2] = 69;
-		values[3] = 19;
-		values[4] = 03;
-		values[5] = 54;
-		values[6] = 57;
-		values[7] = 83;
-		values[8] = 42;
-		values[9] = 48;
-		values[10] = 92;
-		values[11] = 72;
-		values[12] = 78;
-		values[13] = 10;
-		values[14] = 8;
-		values[15] = 13;
-		values[16] = 46;
-		values[17] = 29;
-		values[18] = 73;
-		values[19] = 90;
-		values[20] = 30;
-		values[21] = 44;
-		values[22] = 80;
-		values[23] = 74;
-		values[24] = 66;
-		values[25] = 60;
-		values[26] = 79;
-		values[27] = 36;
-		values[28] = 05;
-		values[29] = 63;
-		values[30] = 9;
-		values[31] = 97;
-		values[32] = 62;
-		values[33] = 60;
-		values[34] = 21;
-		values[35] = 51;
-		values[36] = 63;
-		values[37] = 83;
-		values[38] = 87;
-		values[39] = 22;
-		values[40] = 8;
-		values[41] = 18;
-		values[42] = 48;
-		values[43] = 41;
-		values[44] = 38;
-		values[45] = 22;
-		values[46] = 58;
-		values[47] = 99;
-		values[48] = 19;
-		values[49] = 94;
+		for (int index = 0; index < SIZE; index++)
+			values[index] = Math.abs(rand.nextInt()) % 100;
 
 		backupValues = values.clone();
 
@@ -369,7 +319,7 @@ public class Sorts {
 	{
 		int left = (hole * 2) + 1;
 		int right = (hole * 2) + 2;
-		
+
 		if (left > lastIndex) {
 			// hole has no children
 			comparisons++;
@@ -389,7 +339,6 @@ public class Sorts {
 				comparisons++;
 				// left child < right child
 				if (values[right] <= item) {
-					//comparisons++; --8
 					// right child <= item
 					return hole;
 				} else
@@ -400,7 +349,6 @@ public class Sorts {
 			else {
 				// left child >= right child
 				if (values[left] <= item) {
-					//comparisons++; --5
 					// left child <= item
 					return hole;
 				} else
