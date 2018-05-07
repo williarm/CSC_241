@@ -72,13 +72,14 @@ public class Sorts {
 		values[48] = 19;
 		values[49] = 94;
 
-		backupValues = values;
+		backupValues = values.clone();
+
 	}
 
 	static void resetValues() {
 		swaps = 0;
 		comparisons = 0;
-		values = backupValues;
+		values = backupValues.clone();
 	}
 
 	static public boolean isSorted()
@@ -368,16 +369,16 @@ public class Sorts {
 	{
 		int left = (hole * 2) + 1;
 		int right = (hole * 2) + 2;
+		
 		if (left > lastIndex) {
 			// hole has no children
-			// comparisons++;
+			comparisons++;
 			return hole;
 		} else if (left == lastIndex) {
 			comparisons++;
 			// hole has left child only
 			if (item < values[left]) {
 				// item < left child
-				comparisons++;
 				return left;
 			} else
 				// item >= left child
@@ -388,7 +389,7 @@ public class Sorts {
 				comparisons++;
 				// left child < right child
 				if (values[right] <= item) {
-					comparisons++;
+					//comparisons++; --8
 					// right child <= item
 					return hole;
 				} else
@@ -399,7 +400,7 @@ public class Sorts {
 			else {
 				// left child >= right child
 				if (values[left] <= item) {
-					comparisons++;
+					//comparisons++; --5
 					// left child <= item
 					return hole;
 				} else
@@ -422,9 +423,10 @@ public class Sorts {
 			values[hole] = values[newhole]; // move value up
 			hole = newhole; // move hole down
 			newhole = newHole(hole, lastIndex, item); // find next hole
-			// comparisons++;
+			comparisons++;
 		}
 		values[hole] = item; // fill in the final hole
+		comparisons++;
 	}
 
 	static void heapSort()
